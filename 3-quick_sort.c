@@ -2,64 +2,39 @@
 #include "sort.h"
 
 /**
- * lomuto_partition - Partitions an array using Lomuto partition scheme
- * @array: The array to be partitioned
- * @low: Starting index of the array
- * @high: Ending index of the array
- * Return: Index of the pivot element
- */
-size_t lomuto_partition(int *array, size_t low, size_t high)
-{
-	int pivot = array[high];
-	int temp;
-	size_t i = low - 1;
-	size_t j;
-
-	for (j = low; j < high; j++)
-	{
-		if (array[j] < pivot)
-		{
-			i++;
-			temp = array[i];
-			array[i] = array[j];
-			array[j] = temp;
-		}
-	}
-
-	temp = array[i + 1];
-	array[i + 1] = array[high];
-	array[high] = temp;
-
-	return i + 1;
-}
-
-/**
- * quick_sort - Sorts an array of integers in ascending order
- * using the quick sort algorithm
+ * selection_sort - Sorts an array of integers in ascending order
+ * using the selection sort algorithm
  * @array: The array to be sorted
  * @size: Number of elements in array
  */
+
 void quick_sort(int *array, size_t size)
 {
-	size_t pivot_index;
-	size_t i;
-	
-	if (size <= 1)
-		return;
-	
-	pivot_index = lomuto_partition(array, 0, size - 1);
+	size_t i, j, min_idx;
+	int temp;
 
-	if (pivot_index > 0)
+	for (i = 0; i < size - 1; i++)
 	{
-		quick_sort(array, pivot_index);
+		min_idx = i;
+		for (j = i + 1; j < size; j++)
+		{
+			if (array[j] < array[min_idx])
+				min_idx = j;
+		}
+
+		if (min_idx != i)
+		{
+			temp = array[i];
+			array[i] = array[min_idx];
+			array[min_idx] = temp;
+
+			for (j = 0; j < size; j++)
+			{
+				if (j > 0)
+					printf(", ");
+				printf("%d", array[j]);
+			}
+			printf("\n");
+		}
 	}
-	
-	quick_sort(array + pivot_index + 1, size - pivot_index - 1);
-	for (i = 0; i < size; i++)
-	{
-		if (i > 0)
-			printf(", ");
-		printf("%d", array[i]);
-	}
-	printf("\n");
 }
