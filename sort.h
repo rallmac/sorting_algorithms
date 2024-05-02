@@ -25,6 +25,7 @@ void print_array(int *array, size_t size);
 void print_list(const listint_t *list);
 void swap_nodes(listint_t *a, listint_t *b, listint_t **list);
 void swap(int *a, int *b);
+void node_swap(listint_t **list, listint_t *node1, listint_t *node2);
 int partition(int *array, int low, int high);
 void bubble_sort(int *array, size_t size);
 void insertion_sort_list(listint_t **list);
